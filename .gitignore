@@ -1,0 +1,9 @@
+.env
+.idea/
+.vscode/
+*.log
+*.pid
+*.swp
+chatgpt-data/
+/AGETNTS.md
+/build.sh

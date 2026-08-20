@@ -1,0 +1,24 @@
+services:
+  chatgpt:
+    image: ghcr.io/mark0725/chatgpt-docker:latest
+    container_name: chatgpt
+    restart: unless-stopped
+    init: true
+    ports:
+      - "127.0.0.1:${HOST_PORT:-6080}:6080"
+    environment:
+      PUID: "${PUID:-1000}"
+      PGID: "${PGID:-1000}"
+      DISPLAY_WIDTH: "${DISPLAY_WIDTH:-1440}"
+      DISPLAY_HEIGHT: "${DISPLAY_HEIGHT:-900}"
+      VNC_PASSWORD: "${VNC_PASSWORD:-}"
+      CHATGPT_PROXY_SERVER: "${CHATGPT_PROXY_SERVER:-}"
+    shm_size: "1gb"
+    working_dir: "/work/${WORKSPACE_NAME:-workspace}"
+    volumes:
+      - gpt-home:/home/gpt
+      - "${HOME}/.codex:/home/gpt/.codex"
+      - "${WORKSPACE_PATH:-.}:/work/${WORKSPACE_NAME:-workspace}"
+
+volumes:
+  gpt-home:
