@@ -4,6 +4,7 @@ set -Eeuo pipefail
 IMAGE="${IMAGE:-ghcr.io/mark0725/chatgpt-docker:latest}"
 CONTAINER_NAME="${CONTAINER_NAME:-chatgpt}"
 HOST_PORT="${HOST_PORT:-6080}"
+HOST_LISTEN="${HOST_LISTEN:-127.0.0.1}"
 HOME_VOLUME="${HOME_VOLUME:-gpt-home}"
 CODEX_HOME="${CODEX_HOME:-${HOME}/.codex}"
 WORKSPACE_PATH="${WORKSPACE_PATH:-${PWD}}"
@@ -25,7 +26,7 @@ run_args=(
   --restart unless-stopped
   --init
   --shm-size 1g
-  --publish "127.0.0.1:${HOST_PORT}:6080"
+  --publish "${HOST_LISTEN}:${HOST_PORT}:6080"
   --env "PUID=${HOST_UID}"
   --env "PGID=${HOST_GID}"
   --env "VNC_PASSWORD=${VNC_PASSWORD:-}"
